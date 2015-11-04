@@ -81,32 +81,6 @@ class ViewController: UIViewController, UIAlertViewDelegate {
     }
     // 布局位置
     func setUpPosition(){
-        self.view.updateConstraintsIfNeeded()
-        self.view.layoutIfNeeded()
-        for subView in self.view.subviews {
-            subView.updateConstraintsIfNeeded()
-            subView.layoutIfNeeded()
-        }
-//        for subView in self.view.subviews {
-//            subView.updateConstraintsIfNeeded()
-//            subView.layoutIfNeeded()
-//        }
-//        if #available(iOS 8.0, *) {
-////            let hSizeClass = self.view.traitCollection.horizontalSizeClass
-//            let vSizeClass = self.view.traitCollection.verticalSizeClass
-//            if vSizeClass == UIUserInterfaceSizeClass.Compact {
-//                print("compact")
-//            }else if vSizeClass == UIUserInterfaceSizeClass.Regular {
-//                print("Regular")
-//            }else if vSizeClass == UIUserInterfaceSizeClass.Unspecified {
-//                print("Unspecified")
-//            }
-//        } else {
-//            
-//        }
-        let viewFrame = NSStringFromCGRect(self.view.frame)
-        let chessViewFrame = NSStringFromCGRect(self._chessView.frame)
-        print("viewFrame:",viewFrame,"chessViewFrame:",chessViewFrame)
         
         let topSpace:CGFloat = 0  // 顶部距离
         let leftSpace:CGFloat = 0      // 左边距离
@@ -266,8 +240,8 @@ class ViewController: UIViewController, UIAlertViewDelegate {
         self.chessBtnClicked(nil)
         
         if let (chess1,chess2) = self.checkExistPath(){
-            self.view.bringSubviewToFront(chess1)
-            self.view.bringSubviewToFront(chess2)
+            self._chessView.bringSubviewToFront(chess1)
+            self._chessView.bringSubviewToFront(chess2)
             
             UIView.animateWithDuration(0.5, animations: { () -> Void in
                 // 先放大
@@ -306,7 +280,7 @@ class ViewController: UIViewController, UIAlertViewDelegate {
         UIView.animateWithDuration(0.25) { () -> Void in
             sender.transform = CGAffineTransformMakeScale(kBigScale, kBigScale)
         }
-        self.view.bringSubviewToFront(sender)
+        self._chessView.bringSubviewToFront(sender)
     }
     // 让棋子恢复正常大小
     func normalChess(sender: UIButton){
@@ -562,7 +536,7 @@ class ViewController: UIViewController, UIAlertViewDelegate {
             if #available(iOS 8.0, *) {
                 let winAlert = UIAlertController(title: "连连看", message: "恭喜通过！", preferredStyle: UIAlertControllerStyle.Alert)
                 winAlert.addAction(UIAlertAction(title: "确定", style: UIAlertActionStyle.Cancel, handler: { (action:UIAlertAction) -> Void in
-                    self.reSetChess()
+                    self.resetChess()
                 }))
                 self.presentViewController(winAlert, animated: true, completion: nil)
             } else {
@@ -593,7 +567,7 @@ class ViewController: UIViewController, UIAlertViewDelegate {
         }
     }
     // 重置棋盘
-    func reSetChess(){
+    func resetChess(){
         self._timeProgress.setProgress(1.0, animated: true)
         self._timer?.invalidate()
         self._timer = nil
@@ -610,7 +584,7 @@ class ViewController: UIViewController, UIAlertViewDelegate {
         if alertView == self._winAlert {
             if buttonIndex == 0{
                 // 确定
-                self.reSetChess()
+                self.resetChess()
             }
         }
     }
@@ -621,20 +595,19 @@ class ViewController: UIViewController, UIAlertViewDelegate {
         super.willRotateToInterfaceOrientation(toInterfaceOrientation, duration: duration)
         print(__FUNCTION__)
     }
-    override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
-        super.didRotateFromInterfaceOrientation(fromInterfaceOrientation)
-        print(__FUNCTION__)
-    }
     override func willAnimateRotationToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
         super.willAnimateRotationToInterfaceOrientation(toInterfaceOrientation, duration: duration)
         print(__FUNCTION__)
     }
+    override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
+        super.didRotateFromInterfaceOrientation(fromInterfaceOrientation)
+        print(__FUNCTION__)
+    }
     // iOS8
     @available(iOS 8.0, *)
-    override func traitCollectionDidChange(previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
+    override func willTransitionToTraitCollection(newCollection: UITraitCollection, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        super.willTransitionToTraitCollection(newCollection, withTransitionCoordinator: coordinator)
         print(__FUNCTION__)
-        self.setUpPosition()
     }
     @available(iOS 8.0, *)
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
@@ -642,11 +615,14 @@ class ViewController: UIViewController, UIAlertViewDelegate {
         print(__FUNCTION__)
     }
     @available(iOS 8.0, *)
-    override func willTransitionToTraitCollection(newCollection: UITraitCollection, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        super.willTransitionToTraitCollection(newCollection, withTransitionCoordinator: coordinator)
+    override func traitCollectionDidChange(previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
         print(__FUNCTION__)
+        // 异步方式加入主线程队列可以让代码在该方法运行完之后再执行
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            self.setUpPosition()
+        }
     }
-    
 }
 // 判断两点是否相等
 func pointEqualToPoint(point1:CGPoint, point2:CGPoint)->Bool{

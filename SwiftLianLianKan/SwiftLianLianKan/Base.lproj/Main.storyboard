@@ -159,7 +159,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="_chessView" destination="Cld-sr-7oH" id="BXh-aR-Qvd"/>
