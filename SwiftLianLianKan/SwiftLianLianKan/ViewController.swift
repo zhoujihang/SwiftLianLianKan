@@ -81,14 +81,21 @@ class ViewController: UIViewController, UIAlertViewDelegate {
     }
     // 布局位置
     func setUpPosition(){
+        var topSpace:CGFloat = 0  // 顶部距离
+        var leftSpace:CGFloat = 0      // 左边距离
+        var rightSpace:CGFloat = 0     // 右边的距离
         
-        let topSpace:CGFloat = 0  // 顶部距离
-        let leftSpace:CGFloat = 0      // 左边距离
-        let rightSpace:CGFloat = 0     // 右边的距离
+        let chessWidth = (self._chessView.bounds.size.width-leftSpace-rightSpace)/CGFloat(kCount_column)
+        let chessHeight = self._chessView.bounds.size.height/CGFloat(kCount_row)
         
-        // 单个chess的宽高
-        self._normalWidth = (self._chessView.bounds.size.width-leftSpace-rightSpace)/CGFloat(kCount_column)
-        self._normalHeight = self._chessView.bounds.size.height/CGFloat(kCount_row)
+        // chess的宽高
+        self._normalWidth = min(chessWidth, chessHeight)
+        self._normalHeight = self._normalWidth
+        
+        // 根据chess的宽高修改边距
+        leftSpace = (self._chessView.bounds.size.width-self._normalWidth*CGFloat(kCount_column))*0.5
+        rightSpace = leftSpace
+        topSpace = (self._chessView.bounds.size.height-self._normalHeight*CGFloat(kCount_row))*0.5
         
         self._beginCenterX = leftSpace + self._normalWidth*0.5
         self._beginCenterY = topSpace + self._normalHeight*0.5
@@ -590,7 +597,7 @@ class ViewController: UIViewController, UIAlertViewDelegate {
     }
     
 // MARK: - 屏幕旋转事件
-    // iOS7
+    // iOS7 不想适配iOS7的旋转后布局了。。不支持sizeclass，还要自己判断方向。。
     override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
         super.willRotateToInterfaceOrientation(toInterfaceOrientation, duration: duration)
         print(__FUNCTION__)
@@ -618,7 +625,7 @@ class ViewController: UIViewController, UIAlertViewDelegate {
     override func traitCollectionDidChange(previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         print(__FUNCTION__)
-        // 异步方式加入主线程队列可以让代码在该方法运行完之后再执行
+        // 异步方式加入主线程队列可以让代码在该方法运行完之后再执行，否则chessview的frame不准确
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
             self.setUpPosition()
         }
