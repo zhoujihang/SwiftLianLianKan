@@ -25,6 +25,9 @@ class ViewController: UIViewController, UIAlertViewDelegate {
     @IBOutlet weak var _reRangeBtn: UIButton!
     // 剩余时间进度条
     @IBOutlet weak var _timeProgress: UIProgressView!
+    // 放棋子的棋盘
+    @IBOutlet weak var _chessView: UIView!
+    
     
     // iOS7 的游戏通关弹窗
     weak var _winAlert: UIAlertView?
@@ -71,20 +74,47 @@ class ViewController: UIViewController, UIAlertViewDelegate {
                 let btn = ChessBtn(model: model)
                 btn.tag = tag + 100
                 btn.addTarget(self, action: Selector("chessBtnClicked:"), forControlEvents: UIControlEvents.TouchUpInside)
-                self.view.addSubview(btn)
+                self._chessView.addSubview(btn)
                 self._lifingChesses.append(btn)
             }
         }
     }
-    
     // 布局位置
     func setUpPosition(){
-        let screenSize = UIScreen.mainScreen().bounds.size
-        let topSpace:CGFloat = CGRectGetMaxY(self._reRangeBtn.frame)+16  // 顶部距离
-        let leftSpace:CGFloat = 16      // 左边距离
+        self.view.updateConstraintsIfNeeded()
+        self.view.layoutIfNeeded()
+        for subView in self.view.subviews {
+            subView.updateConstraintsIfNeeded()
+            subView.layoutIfNeeded()
+        }
+//        for subView in self.view.subviews {
+//            subView.updateConstraintsIfNeeded()
+//            subView.layoutIfNeeded()
+//        }
+//        if #available(iOS 8.0, *) {
+////            let hSizeClass = self.view.traitCollection.horizontalSizeClass
+//            let vSizeClass = self.view.traitCollection.verticalSizeClass
+//            if vSizeClass == UIUserInterfaceSizeClass.Compact {
+//                print("compact")
+//            }else if vSizeClass == UIUserInterfaceSizeClass.Regular {
+//                print("Regular")
+//            }else if vSizeClass == UIUserInterfaceSizeClass.Unspecified {
+//                print("Unspecified")
+//            }
+//        } else {
+//            
+//        }
+        let viewFrame = NSStringFromCGRect(self.view.frame)
+        let chessViewFrame = NSStringFromCGRect(self._chessView.frame)
+        print("viewFrame:",viewFrame,"chessViewFrame:",chessViewFrame)
+        
+        let topSpace:CGFloat = 0  // 顶部距离
+        let leftSpace:CGFloat = 0      // 左边距离
+        let rightSpace:CGFloat = 0     // 右边的距离
+        
         // 单个chess的宽高
-        self._normalWidth = (screenSize.width-leftSpace*2)/CGFloat(kCount_column)
-        self._normalHeight = self._normalWidth
+        self._normalWidth = (self._chessView.bounds.size.width-leftSpace-rightSpace)/CGFloat(kCount_column)
+        self._normalHeight = self._chessView.bounds.size.height/CGFloat(kCount_row)
         
         self._beginCenterX = leftSpace + self._normalWidth*0.5
         self._beginCenterY = topSpace + self._normalHeight*0.5
@@ -96,6 +126,7 @@ class ViewController: UIViewController, UIAlertViewDelegate {
         }
         for(var i=0;i<self._lifingChesses.count;i++){
             let btn = self._lifingChesses[i]
+            // 得到棋子在棋盘中的位置 chessIndex
             let randomIndex = Int(arc4random_uniform(UInt32(indexArr.count)))
             let chessIndex:Int = indexArr[randomIndex]
             indexArr.removeAtIndex(randomIndex)
@@ -109,7 +140,6 @@ class ViewController: UIViewController, UIAlertViewDelegate {
             let pointY = topSpace + CGFloat(row)*self._normalHeight
             btn.frame = CGRect(x: pointX, y: pointY, width: self._normalWidth, height: self._normalHeight)
         }
-        
     }
     
     // 获取连连看图片信息的数组
@@ -140,7 +170,6 @@ class ViewController: UIViewController, UIAlertViewDelegate {
         for chess in self._lifingChesses{
             chess.enabled = false
         }
-        
     }
 // MARK: - 点击事件
     //棋子点击事件
@@ -585,6 +614,39 @@ class ViewController: UIViewController, UIAlertViewDelegate {
             }
         }
     }
+    
+// MARK: - 屏幕旋转事件
+    // iOS7
+    override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
+        super.willRotateToInterfaceOrientation(toInterfaceOrientation, duration: duration)
+        print(__FUNCTION__)
+    }
+    override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
+        super.didRotateFromInterfaceOrientation(fromInterfaceOrientation)
+        print(__FUNCTION__)
+    }
+    override func willAnimateRotationToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
+        super.willAnimateRotationToInterfaceOrientation(toInterfaceOrientation, duration: duration)
+        print(__FUNCTION__)
+    }
+    // iOS8
+    @available(iOS 8.0, *)
+    override func traitCollectionDidChange(previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        print(__FUNCTION__)
+        self.setUpPosition()
+    }
+    @available(iOS 8.0, *)
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+        print(__FUNCTION__)
+    }
+    @available(iOS 8.0, *)
+    override func willTransitionToTraitCollection(newCollection: UITraitCollection, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        super.willTransitionToTraitCollection(newCollection, withTransitionCoordinator: coordinator)
+        print(__FUNCTION__)
+    }
+    
 }
 // 判断两点是否相等
 func pointEqualToPoint(point1:CGPoint, point2:CGPoint)->Bool{
