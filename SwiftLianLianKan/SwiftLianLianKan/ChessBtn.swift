@@ -15,7 +15,7 @@ class ChessBtn: UIButton {
     // 自定义构造函数
     init(model:ChessModel){
         super.init(frame: CGRectZero)
-        _chessModel = model
+        _chessModel = model.copy() as? ChessModel
         self.setUpViews()
     }
     

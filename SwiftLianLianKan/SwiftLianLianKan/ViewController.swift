@@ -55,7 +55,8 @@ class ViewController: UIViewController, UIAlertViewDelegate {
     }
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        self.setUpPosition()
+        self.setUpPosition(random: true)
+        print(__FUNCTION__)
     }
 // MARK: - 创建视图
     func setUpViews(){
@@ -80,7 +81,8 @@ class ViewController: UIViewController, UIAlertViewDelegate {
         }
     }
     // 布局位置
-    func setUpPosition(){
+    // random: true 表示随机位置  false表示固定位置
+    func setUpPosition(random random:Bool){
         var topSpace:CGFloat = 0  // 顶部距离
         var leftSpace:CGFloat = 0      // 左边距离
         var rightSpace:CGFloat = 0     // 右边的距离
@@ -111,18 +113,25 @@ class ViewController: UIViewController, UIAlertViewDelegate {
             let randomIndex = Int(arc4random_uniform(UInt32(indexArr.count)))
             let chessIndex:Int = indexArr[randomIndex]
             indexArr.removeAtIndex(randomIndex)
+            
             // 行数
-            let row:Int = chessIndex/kCount_column
+            var row:Int = chessIndex/kCount_column
             // 列数
-            let column:Int = chessIndex%kCount_column
+            var column:Int = chessIndex%kCount_column
+            if random == false {
+                // 固定的位置
+                row = (btn._chessModel?.index_row)!;
+                column = (btn._chessModel?.index_column)!;
+            }
             // x坐标
             let pointX = leftSpace + CGFloat(column)*self._normalWidth
             // y坐标
             let pointY = topSpace + CGFloat(row)*self._normalHeight
             btn.frame = CGRect(x: pointX, y: pointY, width: self._normalWidth, height: self._normalHeight)
+            btn._chessModel?.index_row = row;
+            btn._chessModel?.index_column = column;
         }
     }
-    
     // 获取连连看图片信息的数组
     func chessModelArr()->Array<ChessModel>?{
         let path = NSBundle.mainBundle().pathForResource("llkDic.plist", ofType: nil)
@@ -232,7 +241,7 @@ class ViewController: UIViewController, UIAlertViewDelegate {
         self.chessBtnClicked(nil)
         
         UIView .animateWithDuration(0.5, animations: { () -> Void in
-            self.setUpPosition()
+            self.setUpPosition(random: true)
             }) { (stop) -> Void in
                 // 检查是否有可消路径
                 if self.checkExistPath() == nil{
@@ -266,7 +275,6 @@ class ViewController: UIViewController, UIAlertViewDelegate {
     }
     // 定时器的任务
     func timerTask(timer:NSTimer){
-        print(NSDate(),timer)
         if self._timeProgress.progress <= 0 {
             // 游戏结束了
             self.gameFail()
@@ -583,7 +591,7 @@ class ViewController: UIViewController, UIAlertViewDelegate {
         self._lifingChesses = self._lifingChesses + self._deadChesses
         self._deadChesses = []
         self.darkLifingChess()
-        self.setUpPosition()
+        self.setUpPosition(random: true)
         
     }
 // MARK:  - alertview的代理方法
@@ -627,7 +635,7 @@ class ViewController: UIViewController, UIAlertViewDelegate {
         print(__FUNCTION__)
         // 异步方式加入主线程队列可以让代码在该方法运行完之后再执行，否则chessview的frame不准确
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            self.setUpPosition()
+            self.setUpPosition(random: false)
         }
     }
 }
