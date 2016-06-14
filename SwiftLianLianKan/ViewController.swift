@@ -56,7 +56,7 @@ class ViewController: UIViewController, UIAlertViewDelegate {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         self.setUpPosition(random: true)
-        print(__FUNCTION__)
+        print(#function)
     }
 // MARK: - 创建视图
     func setUpViews(){
@@ -66,15 +66,15 @@ class ViewController: UIViewController, UIAlertViewDelegate {
         if chessModelArr?.count >= 18 {
             let modelArr = chessModelArr!
             // 创建 棋子
-            let count = kCount_row*kCount_column
-            for(var i=0;i<count;i++){
+            let count = kCount_row * kCount_column
+            for i in 0 ..< count {
                 let tag:Int = i/2%modelArr.count
                 let chessModel:ChessModel? = modelArr[tag]
                 let model = chessModel!
                 // 设置棋子属性
                 let btn = ChessBtn(model: model)
                 btn.tag = tag + 100
-                btn.addTarget(self, action: Selector("chessBtnClicked:"), forControlEvents: UIControlEvents.TouchUpInside)
+                btn.addTarget(self, action: #selector(ViewController.chessBtnClicked(_:)), forControlEvents: UIControlEvents.TouchUpInside)
                 self._chessView.addSubview(btn)
                 self._lifingChesses.append(btn)
             }
@@ -104,10 +104,10 @@ class ViewController: UIViewController, UIAlertViewDelegate {
         
         // 提供棋子的随机座位
         var indexArr:Array<Int> = []
-        for(var i=0;i<kCount_row*kCount_column;i++){
+        for i in 0 ..< kCount_row * kCount_column {
             indexArr.append(i)
         }
-        for(var i=0;i<self._lifingChesses.count;i++){
+        for i in 0 ..< self._lifingChesses.count {
             let btn = self._lifingChesses[i]
             // 得到棋子在棋盘中的位置 chessIndex
             let randomIndex = Int(arc4random_uniform(UInt32(indexArr.count)))
@@ -213,7 +213,7 @@ class ViewController: UIViewController, UIAlertViewDelegate {
         self._timeProgress.setProgress(1.0, animated: true)
         self._timer?.invalidate()
         self._timer = nil
-        self._timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("timerTask:"), userInfo: nil, repeats: true)
+        self._timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(ViewController.timerTask(_:)), userInfo: nil, repeats: true)
     }
     // 暂停按钮
     @IBAction func parseBtnClicked(sender: UIButton) {
@@ -231,7 +231,7 @@ class ViewController: UIViewController, UIAlertViewDelegate {
             self._timer?.invalidate()
             self._timer = nil
             self.lightLifingChess()
-            self._timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("timerTask:"), userInfo: nil, repeats: true)
+            self._timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(ViewController.timerTask(_:)), userInfo: nil, repeats: true)
             self._parseBtn.setTitle("暂停", forState: UIControlState.Normal)
         }
     }
@@ -371,7 +371,7 @@ class ViewController: UIViewController, UIAlertViewDelegate {
             let count:Int = Int(abs((point2.y-point1.y)/self._normalHeight)+0.5)
             let padding = point2.y > point1.y ? self._normalHeight : -self._normalHeight
             var isLine = true
-            for(var i=1;i<=count;i++){
+            for i in 1...count {
                 let y = point1.y + padding*CGFloat(i)
                 let point = CGPoint(x: point1.x, y: y)
                 
@@ -400,7 +400,7 @@ class ViewController: UIViewController, UIAlertViewDelegate {
             let count:Int = Int(abs((point2.x-point1.x)/self._normalWidth)+0.5)
             let padding = point2.x > point1.x ? self._normalWidth : -self._normalWidth
             var isLine = true
-            for(var i=1;i<=count;i++){
+            for i in 1...count {
                 let x = point1.x + padding*CGFloat(i)
                 let point = CGPoint(x: x, y: point1.y)
                 if i == 1 {
@@ -428,17 +428,17 @@ class ViewController: UIViewController, UIAlertViewDelegate {
     // 判断能否通过 2 条线吃掉
     func twoLine(chess1Path:ChessPath, chess2Path:ChessPath)->Bool{
         // chess1的x轴路线交与chesss2的y轴路线
-        for(var i=0;i<chess1Path.xArr.count;i++){
+        for i in 0 ..< chess1Path.xArr.count {
             let xPoint = chess1Path.xArr[i]
-            for(var j=0;j<chess2Path.yArr.count;j++){
+            for j in 0 ..< chess2Path.yArr.count {
                 let yPoint = chess2Path.yArr[j]
                 if pointEqualToPoint(xPoint, point2: yPoint) {return true}
             }
         }
         // chess1的y轴路线交与chesss2的x轴路线
-        for(var i=0;i<chess1Path.yArr.count;i++){
+        for i in 0 ..< chess1Path.yArr.count {
             let yPoint = chess1Path.yArr[i]
-            for(var j=0;j<chess2Path.xArr.count;j++){
+            for j in 0 ..< chess2Path.xArr.count {
                 let xPoint = chess2Path.xArr[j]
                 if pointEqualToPoint(yPoint, point2: xPoint) {return true}
             }
@@ -448,9 +448,9 @@ class ViewController: UIViewController, UIAlertViewDelegate {
     // 判断能否通过 3 条线吃掉
     func threeLine(chess1Path:ChessPath, chess2Path:ChessPath)->Bool{
         // chess1的x轴路径与chess2的x轴路径有直连线存在
-        for(var i=0;i<chess1Path.xArr.count;i++){
+        for i in 0 ..< chess1Path.xArr.count {
             let chess1Point:CGPoint = chess1Path.xArr[i]
-            for(var j=0;j<chess2Path.xArr.count;j++){
+            for j in 0 ..< chess2Path.xArr.count {
                 let chess2Point:CGPoint = chess2Path.xArr[j]
                 let xOffset = abs(chess1Point.x - chess2Point.x)
                 if xOffset < kMinOffset {
@@ -462,9 +462,9 @@ class ViewController: UIViewController, UIAlertViewDelegate {
             }
         }
         // chess1的y轴路径与chess2的y轴路径有直连线存在
-        for(var i=0;i<chess1Path.yArr.count;i++){
+        for i in 0 ..< chess1Path.yArr.count {
             let chess1Point:CGPoint = chess1Path.yArr[i]
-            for(var j=0;j<chess2Path.yArr.count;j++){
+            for j in 0 ..< chess2Path.yArr.count {
                 let chess2Point:CGPoint = chess2Path.yArr[j]
                 let yOffset = abs(chess1Point.y - chess2Point.y)
                 if yOffset < kMinOffset {
@@ -489,42 +489,50 @@ class ViewController: UIViewController, UIAlertViewDelegate {
         let originY = chess.center.y
         
         var x1Arr:Array<CGPoint> = []
-        for(var x=originX-self._normalWidth; x+kMinOffset>=minX ;x-=self._normalWidth){
-            let point = CGPointMake(x, originY)
+        
+        var x1 = originX - self._normalWidth
+        while x1+kMinOffset >= minX {
+            let point = CGPointMake(x1, originY)
             if isIdlePoint(point){
                 x1Arr.append(point)
             }else{
                 break
             }
+            x1 -= self._normalWidth
         }
         var x2Arr:Array<CGPoint> = []
-        for(var x=originX+self._normalWidth; x-kMinOffset<=maxX ;x+=self._normalWidth){
-            let point = CGPointMake(x, originY)
+        var x2 = originX + self._normalWidth
+        while x2-kMinOffset <= maxX {
+            let point = CGPointMake(x2, originY)
             if isIdlePoint(point){
                 x2Arr.append(point)
             }else{
                 break
             }
+            x2 += self._normalWidth
         }
         var y1Arr:Array<CGPoint> = []
-        for(var y=originY-self._normalHeight; y+kMinOffset>=minY ;y-=self._normalHeight){
-            let point = CGPointMake(originX, y)
+        var y1 = originY - self._normalHeight
+        while y1 + kMinOffset >= minY {
+            let point = CGPointMake(originX, y1)
             if isIdlePoint(point){
                 y1Arr.append(point)
             }else{
                 break
             }
+            y1 -= self._normalHeight
         }
         var y2Arr:Array<CGPoint> = []
-        for(var y=originY+self._normalHeight; y-kMinOffset<=maxY ;y+=self._normalHeight){
-            let point = CGPointMake(originX, y)
+        var y2 = originY + self._normalHeight
+        while y2 - kMinOffset <= maxY {
+            let point = CGPointMake(originX, y2)
             if isIdlePoint(point){
                 y2Arr.append(point)
             }else{
                 break
             }
+            y2 += self._normalHeight
         }
-        
         let chessPath = ChessPath(x1Arr+x2Arr,y1Arr+y2Arr)
         
         return chessPath
@@ -608,31 +616,31 @@ class ViewController: UIViewController, UIAlertViewDelegate {
     // iOS7 不想适配iOS7的旋转后布局了。。不支持sizeclass，还要自己判断方向。。
     override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
         super.willRotateToInterfaceOrientation(toInterfaceOrientation, duration: duration)
-        print(__FUNCTION__)
+        print(#function)
     }
     override func willAnimateRotationToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
         super.willAnimateRotationToInterfaceOrientation(toInterfaceOrientation, duration: duration)
-        print(__FUNCTION__)
+        print(#function)
     }
     override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
         super.didRotateFromInterfaceOrientation(fromInterfaceOrientation)
-        print(__FUNCTION__)
+        print(#function)
     }
     // iOS8
     @available(iOS 8.0, *)
     override func willTransitionToTraitCollection(newCollection: UITraitCollection, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.willTransitionToTraitCollection(newCollection, withTransitionCoordinator: coordinator)
-        print(__FUNCTION__)
+        print(#function)
     }
     @available(iOS 8.0, *)
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-        print(__FUNCTION__)
+        print(#function)
     }
     @available(iOS 8.0, *)
     override func traitCollectionDidChange(previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        print(__FUNCTION__)
+        print(#function)
         // 异步方式加入主线程队列可以让代码在该方法运行完之后再执行，否则chessview的frame不准确
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
             self.setUpPosition(random: false)

@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		476D7B0C1BE31EAD00E78C5E /* ChessModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 476D7B0B1BE31EAD00E78C5E /* ChessModel.swift */; settings = {ASSET_TAGS = (); }; };
-		476D7B161BE3282C00E78C5E /* ChessBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 476D7B151BE3282C00E78C5E /* ChessBtn.swift */; settings = {ASSET_TAGS = (); }; };
+		476D7B0C1BE31EAD00E78C5E /* ChessModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 476D7B0B1BE31EAD00E78C5E /* ChessModel.swift */; };
+		476D7B161BE3282C00E78C5E /* ChessBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 476D7B151BE3282C00E78C5E /* ChessBtn.swift */; };
 		4791CBA71BE217A5009F334D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4791CBA61BE217A5009F334D /* AppDelegate.swift */; };
 		4791CBA91BE217A5009F334D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4791CBA81BE217A5009F334D /* ViewController.swift */; };
 		4791CBAC1BE217A5009F334D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4791CBAA1BE217A5009F334D /* Main.storyboard */; };
@@ -16,26 +16,26 @@
 		4791CBB11BE217A5009F334D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4791CBAF1BE217A5009F334D /* LaunchScreen.storyboard */; };
 		4791CBBC1BE217A5009F334D /* SwiftLianLianKanTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4791CBBB1BE217A5009F334D /* SwiftLianLianKanTests.swift */; };
 		4791CBC71BE217A5009F334D /* SwiftLianLianKanUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4791CBC61BE217A5009F334D /* SwiftLianLianKanUITests.swift */; };
-		4791CBE91BE244BE009F334D /* llk.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4791CBD51BE244BE009F334D /* llk.plist */; settings = {ASSET_TAGS = (); }; };
-		4791CBEA1BE244BE009F334D /* llkDic.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4791CBD61BE244BE009F334D /* llkDic.plist */; settings = {ASSET_TAGS = (); }; };
-		4791CBEB1BE244BE009F334D /* 向日葵.png in Resources */ = {isa = PBXBuildFile; fileRef = 4791CBD71BE244BE009F334D /* 向日葵.png */; settings = {ASSET_TAGS = (); }; };
-		4791CBEC1BE244BE009F334D /* 吴亦凡.png in Resources */ = {isa = PBXBuildFile; fileRef = 4791CBD81BE244BE009F334D /* 吴亦凡.png */; settings = {ASSET_TAGS = (); }; };
-		4791CBED1BE244BE009F334D /* 吴佩慈.png in Resources */ = {isa = PBXBuildFile; fileRef = 4791CBD91BE244BE009F334D /* 吴佩慈.png */; settings = {ASSET_TAGS = (); }; };
-		4791CBEE1BE244BE009F334D /* 唐僧.png in Resources */ = {isa = PBXBuildFile; fileRef = 4791CBDA1BE244BE009F334D /* 唐僧.png */; settings = {ASSET_TAGS = (); }; };
-		4791CBEF1BE244BE009F334D /* 奥特曼.png in Resources */ = {isa = PBXBuildFile; fileRef = 4791CBDB1BE244BE009F334D /* 奥特曼.png */; settings = {ASSET_TAGS = (); }; };
-		4791CBF01BE244BE009F334D /* 女神联盟.png in Resources */ = {isa = PBXBuildFile; fileRef = 4791CBDC1BE244BE009F334D /* 女神联盟.png */; settings = {ASSET_TAGS = (); }; };
-		4791CBF11BE244BE009F334D /* 宝贝受伤了.png in Resources */ = {isa = PBXBuildFile; fileRef = 4791CBDD1BE244BE009F334D /* 宝贝受伤了.png */; settings = {ASSET_TAGS = (); }; };
-		4791CBF21BE244BE009F334D /* 宝贝的生日.png in Resources */ = {isa = PBXBuildFile; fileRef = 4791CBDE1BE244BE009F334D /* 宝贝的生日.png */; settings = {ASSET_TAGS = (); }; };
-		4791CBF31BE244BE009F334D /* 宝贝芭比.png in Resources */ = {isa = PBXBuildFile; fileRef = 4791CBDF1BE244BE009F334D /* 宝贝芭比.png */; settings = {ASSET_TAGS = (); }; };
-		4791CBF41BE244BE009F334D /* 小新.png in Resources */ = {isa = PBXBuildFile; fileRef = 4791CBE01BE244BE009F334D /* 小新.png */; settings = {ASSET_TAGS = (); }; };
-		4791CBF51BE244BE009F334D /* 快刀切水果.png in Resources */ = {isa = PBXBuildFile; fileRef = 4791CBE11BE244BE009F334D /* 快刀切水果.png */; settings = {ASSET_TAGS = (); }; };
-		4791CBF61BE244BE009F334D /* 来自星星的你.png in Resources */ = {isa = PBXBuildFile; fileRef = 4791CBE21BE244BE009F334D /* 来自星星的你.png */; settings = {ASSET_TAGS = (); }; };
-		4791CBF71BE244BE009F334D /* 死神狂潮.png in Resources */ = {isa = PBXBuildFile; fileRef = 4791CBE31BE244BE009F334D /* 死神狂潮.png */; settings = {ASSET_TAGS = (); }; };
-		4791CBF81BE244BE009F334D /* 爸爸去哪儿.png in Resources */ = {isa = PBXBuildFile; fileRef = 4791CBE41BE244BE009F334D /* 爸爸去哪儿.png */; settings = {ASSET_TAGS = (); }; };
-		4791CBF91BE244BE009F334D /* 特工.png in Resources */ = {isa = PBXBuildFile; fileRef = 4791CBE51BE244BE009F334D /* 特工.png */; settings = {ASSET_TAGS = (); }; };
-		4791CBFA1BE244BE009F334D /* 神庙逃亡.png in Resources */ = {isa = PBXBuildFile; fileRef = 4791CBE61BE244BE009F334D /* 神庙逃亡.png */; settings = {ASSET_TAGS = (); }; };
-		4791CBFB1BE244BE009F334D /* 美女.png in Resources */ = {isa = PBXBuildFile; fileRef = 4791CBE71BE244BE009F334D /* 美女.png */; settings = {ASSET_TAGS = (); }; };
-		4791CBFC1BE244BE009F334D /* 西方美女.png in Resources */ = {isa = PBXBuildFile; fileRef = 4791CBE81BE244BE009F334D /* 西方美女.png */; settings = {ASSET_TAGS = (); }; };
+		4791CBE91BE244BE009F334D /* llk.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4791CBD51BE244BE009F334D /* llk.plist */; };
+		4791CBEA1BE244BE009F334D /* llkDic.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4791CBD61BE244BE009F334D /* llkDic.plist */; };
+		4791CBEB1BE244BE009F334D /* 向日葵.png in Resources */ = {isa = PBXBuildFile; fileRef = 4791CBD71BE244BE009F334D /* 向日葵.png */; };
+		4791CBEC1BE244BE009F334D /* 吴亦凡.png in Resources */ = {isa = PBXBuildFile; fileRef = 4791CBD81BE244BE009F334D /* 吴亦凡.png */; };
+		4791CBED1BE244BE009F334D /* 吴佩慈.png in Resources */ = {isa = PBXBuildFile; fileRef = 4791CBD91BE244BE009F334D /* 吴佩慈.png */; };
+		4791CBEE1BE244BE009F334D /* 唐僧.png in Resources */ = {isa = PBXBuildFile; fileRef = 4791CBDA1BE244BE009F334D /* 唐僧.png */; };
+		4791CBEF1BE244BE009F334D /* 奥特曼.png in Resources */ = {isa = PBXBuildFile; fileRef = 4791CBDB1BE244BE009F334D /* 奥特曼.png */; };
+		4791CBF01BE244BE009F334D /* 女神联盟.png in Resources */ = {isa = PBXBuildFile; fileRef = 4791CBDC1BE244BE009F334D /* 女神联盟.png */; };
+		4791CBF11BE244BE009F334D /* 宝贝受伤了.png in Resources */ = {isa = PBXBuildFile; fileRef = 4791CBDD1BE244BE009F334D /* 宝贝受伤了.png */; };
+		4791CBF21BE244BE009F334D /* 宝贝的生日.png in Resources */ = {isa = PBXBuildFile; fileRef = 4791CBDE1BE244BE009F334D /* 宝贝的生日.png */; };
+		4791CBF31BE244BE009F334D /* 宝贝芭比.png in Resources */ = {isa = PBXBuildFile; fileRef = 4791CBDF1BE244BE009F334D /* 宝贝芭比.png */; };
+		4791CBF41BE244BE009F334D /* 小新.png in Resources */ = {isa = PBXBuildFile; fileRef = 4791CBE01BE244BE009F334D /* 小新.png */; };
+		4791CBF51BE244BE009F334D /* 快刀切水果.png in Resources */ = {isa = PBXBuildFile; fileRef = 4791CBE11BE244BE009F334D /* 快刀切水果.png */; };
+		4791CBF61BE244BE009F334D /* 来自星星的你.png in Resources */ = {isa = PBXBuildFile; fileRef = 4791CBE21BE244BE009F334D /* 来自星星的你.png */; };
+		4791CBF71BE244BE009F334D /* 死神狂潮.png in Resources */ = {isa = PBXBuildFile; fileRef = 4791CBE31BE244BE009F334D /* 死神狂潮.png */; };
+		4791CBF81BE244BE009F334D /* 爸爸去哪儿.png in Resources */ = {isa = PBXBuildFile; fileRef = 4791CBE41BE244BE009F334D /* 爸爸去哪儿.png */; };
+		4791CBF91BE244BE009F334D /* 特工.png in Resources */ = {isa = PBXBuildFile; fileRef = 4791CBE51BE244BE009F334D /* 特工.png */; };
+		4791CBFA1BE244BE009F334D /* 神庙逃亡.png in Resources */ = {isa = PBXBuildFile; fileRef = 4791CBE61BE244BE009F334D /* 神庙逃亡.png */; };
+		4791CBFB1BE244BE009F334D /* 美女.png in Resources */ = {isa = PBXBuildFile; fileRef = 4791CBE71BE244BE009F334D /* 美女.png */; };
+		4791CBFC1BE244BE009F334D /* 西方美女.png in Resources */ = {isa = PBXBuildFile; fileRef = 4791CBE81BE244BE009F334D /* 西方美女.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -492,9 +492,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				INFOPLIST_FILE = SwiftLianLianKan/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "-D FREE_VERSION";
 				PRODUCT_BUNDLE_IDENTIFIER = zjh.SwiftLianLianKan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -504,9 +506,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				INFOPLIST_FILE = SwiftLianLianKan/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "-D FREE_VERSION";
 				PRODUCT_BUNDLE_IDENTIFIER = zjh.SwiftLianLianKan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
